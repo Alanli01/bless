@@ -1,0 +1,33 @@
+apply plugin: 'groovy'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'com.android.tools.build:gradle:3.0.0'
+    compile "commons-io:commons-io:2.4"
+    compile 'org.ow2.asm:asm:5.1'
+}
+repositories {
+    jcenter()
+    google()
+}
+
+
+apply plugin: 'maven'
+//def MAVEN_LOCAL_PATH = 'http://10.138.60.172'
+def GROUP_ID = 'com.vcredit'
+def ARTIFACT_ID = 'vcredit-gradle-plugin'
+def VERSION_NAME = '0.0.2'
+def deployPath = file('C:/Users/jiangyulun/Desktop/Vcredit-Gradle-Plugin-Repo')
+uploadArchives {
+    repositories.mavenDeployer {
+        // maven savePath
+//        repository(url:MAVEN_LOCAL_PATH)
+        repository(url: "file://${deployPath.absolutePath}")
+        pom.project {
+            groupId GROUP_ID
+            artifactId ARTIFACT_ID
+            version VERSION_NAME
+        }
+    }
+}
